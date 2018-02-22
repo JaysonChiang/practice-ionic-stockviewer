@@ -1,5 +1,5 @@
 angular.module('App')
-    .controller('RatesController', function ($scope, $http, $ionicPopover, Currencies, apiService) {
+    .controller('RatesController', function ($scope, $http, $ionicPopover, Currencies, ApiService) {
 
         $scope.currencies = Currencies;
 
@@ -19,12 +19,12 @@ angular.module('App')
 
 
         $scope.load = function () {
-            apiService.getSignature();
-            apiService.getData()
+            ApiService.getSignature();
+            ApiService.getData()
                 .then(function (res) {
                     var tickers = res.data;
                     $scope.currencies.forEach(function (currency) {
-                        currency.ticker = tickers[currency.code];
+                        currency.ticker = tickers['BTC' + currency.code];
                         currency.ticker.timestamp = new Date(currency.ticker.timestamp);
                     })
                     console.log($scope.currencies);
@@ -36,28 +36,4 @@ angular.module('App')
                 })
         };
         $scope.load();
-    })
-
-
-    /*
-    angular.module('App')
-    .controller('RatesController', function ($scope, $http, Currencies, apiService) {
-
-        $scope.currencies = Currencies;
-
-        $scope.load = function () {
-           apiService.getData()
-                .then(function (res) {
-                    var tickers = res.data;
-                    $scope.currencies.forEach(function (currency) {
-                        currency.ticker = tickers[currency.code];
-                        console.log(currency.ticker);
-                        currency.ticker.timestamp = new Date(currency.ticker.timestamp);
-                    })
-                },function(err){
-                    console.log(err);
-                })
-        };
-        $scope.load();
-    })
-    */
+    });

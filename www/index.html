@@ -22,19 +22,24 @@
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
-    <script src="lib/crypto-js.min.js"></script>
+    <script src="lib/crypto-js/crypto-js.js"></script>
     <script src="credential.js"></script>
-    <script src="bitcoin-data.js"></script>
+    <script src="bitcoin-data-currency.js"></script>
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
 
+    <script src="lib/highcharts/adapters/standalone-framework.js"></script>
+    <script src="lib/highcharts/highcharts.js"></script>
+    <script src="lib/highcharts-ng/dist/highcharts-ng.js"></script>
+
     <!-- your app's js -->
     <script src="js/app.js"></script>
     <script src="views/rates/rates.js"></script>
     <script src="views/detail/detail.js"></script>
+    <script src="views/history/history.js"></script>
   </head>
   <body ng-app="App">
     <ion-nav-bar class="bar-positive">

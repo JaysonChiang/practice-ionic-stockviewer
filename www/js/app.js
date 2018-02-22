@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('App', ['ionic'])
+angular.module('App', ['ionic', 'highcharts-ng'])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('tabs', {
@@ -20,20 +20,21 @@ angular.module('App', ['ionic'])
           }
         }
       })
-      .state('tabs.detail',{
-        url:'/detail/:currency',
-        views:{
-          'rates-tab':{
-            templateUrl:'views/detail/detail.html',
-            controller:'DetailController'
+      .state('tabs.detail', {
+        url: '/detail/:currency',
+        views: {
+          'rates-tab': {
+            templateUrl: 'views/detail/detail.html',
+            controller: 'DetailController'
           }
         }
       })
       .state('tabs.history', {
-        url: '/history',
+        url: '/history?currency',
         views: {
           'history-tab': {
-            templateUrl: 'views/history/history.html'
+            templateUrl: 'views/history/history.html',
+            controller: 'HistoryController'
           }
         }
       })
@@ -51,28 +52,29 @@ angular.module('App', ['ionic'])
 
   .factory('Currencies', function () {
     return [
-      { code: 'BTCAUD', text: 'Australian Dollar', selected: true },
-      { code: 'BTCBRL', text: 'Brazilian Real', selected: false },
-      { code: 'BTCCAD', text: 'Canadian Dollar', selected: true },
+      { code: 'AUD', text: 'Australian Dollar', selected: true },
+      { code: 'BRL', text: 'Brazilian Real', selected: false },
+      { code: 'CAD', text: 'Canadian Dollar', selected: true },
       // { code: 'CHF', text: 'Swiss Franc', selected: false }, Disabled CHF because the API no longer returns it
-      { code: 'BTCCNY', text: 'Chinese Yuan', selected: true },
-      { code: 'BTCEUR', text: 'Euro', selected: true },
-      { code: 'BTCGBP', text: 'British Pound Sterling', selected: true },
-      { code: 'BTCIDR', text: 'Indonesian Rupiah', selected: false },
-      { code: 'BTCILS', text: 'Israeli New Sheqel', selected: false },
-      { code: 'BTCMXN', text: 'Mexican Peso', selected: true },
+      { code: 'CNY', text: 'Chinese Yuan', selected: true },
+      { code: 'EUR', text: 'Euro', selected: true },
+      { code: 'GBP', text: 'British Pound Sterling', selected: true },
+      { code: 'IDR', text: 'Indonesian Rupiah', selected: false },
+      { code: 'ILS', text: 'Israeli New Sheqel', selected: false },
+      { code: 'MXN', text: 'Mexican Peso', selected: true },
       // { code: 'NOK', text: 'Norwegian Krone', selected: false },
-      { code: 'BTCNZD', text: 'New Zealand Dollar', selected: false },
-      { code: 'BTCPLN', text: 'Polish Zloty', selected: false },
+      { code: 'NZD', text: 'New Zealand Dollar', selected: false },
+      { code: 'PLN', text: 'Polish Zloty', selected: false },
       // { code: 'RON', text: 'Romanian Leu', selected: false },
-      { code: 'BTCRUB', text: 'Russian Ruble', selected: true },
-      { code: 'BTCSEK', text: 'Swedish Krona', selected: false },
-      { code: 'BTCSGD', text: 'Singapore Dollar', selected: false },
-      { code: 'BTCUSD', text: 'United States Dollar', selected: true },
-      { code: 'BTCZAR', text: 'South African Rand', selected: false }
+      { code: 'RUB', text: 'Russian Ruble', selected: true },
+      { code: 'SEK', text: 'Swedish Krona', selected: false },
+      { code: 'SGD', text: 'Singapore Dollar', selected: false },
+      { code: 'TWD', text: 'New Taiwan Dollar', selected: true },
+      { code: 'USD', text: 'United States Dollar', selected: true },
+      { code: 'ZAR', text: 'South African Rand', selected: false }
     ]
   })
-  .service('apiService', function ($q) {
+  .service('ApiService', function ($q) {
 
     return {
       getSignature: function () {
