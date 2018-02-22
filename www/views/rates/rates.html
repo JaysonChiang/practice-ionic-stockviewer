@@ -1,0 +1,28 @@
+<ion-view view-title="Current Rates">
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="currency in currencies | filter:{selected:true}">
+                {{currency.code}} - {{currency.text}}
+                <span class="price" ng-if="currency.ticker.last === currency.ticker.averages.day">
+                    {{currency.ticker.last || '0.00'}}
+                    <br/>0.00
+                </span>
+
+                <span class="price negative" ng-if="currency.ticker.last < currency.ticker.averages.day">
+                    {{currency.ticker.last }}
+                    <br/>
+                    <span class="icon ion-arrow-down-b"></span>
+                    {{currency.ticker.averages.day - currency.ticker.last | number:2}}
+                </span>
+                
+                <span class="price positive" ng-if="currency.ticker.last > currency.ticker.averages.day">
+                    {{currency.ticker.last }}
+                    <br/>
+                    <span class="icon ion-arrow-up-b"></span>
+                    {{currency.ticker.last - currency.ticker.averages.day | number:2}}
+                </span>
+
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
